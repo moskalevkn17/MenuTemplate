@@ -1,0 +1,44 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="MenuTemplate.App"
+			 xmlns:vm="clr-namespace:MenuTemplate.ViewModels"
+             RequestedThemeVariant="Default">
+             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+    <Application.Styles>
+        <FluentTheme />
+		<Style Selector="MenuItem.checkbox">
+			<Setter Property="Background" Value="Violet"/>
+			<Setter Property="Icon">
+				<Template>
+					<CheckBox BorderThickness="2"
+							  IsHitTestVisible="True"/>
+				</Template>
+			</Setter>
+		</Style>
+    </Application.Styles>
+
+	<!--Workaround for:https://github.com/AvaloniaUI/Avalonia/discussions/6691 -->
+	<Application.DataTemplates>
+		<DataTemplate DataType="{x:Type vm:MainViewModel}">
+			<Menu ItemsSource="{Binding Menus}" Background="Green">
+				
+				<Menu.ItemTemplate>
+					<DataTemplate>
+						<MenuItem  Header="{Binding Header}" ItemsSource="{Binding Items}" Background="Red" 
+								   Classes.checkbox="{Binding IsChecked, Converter={x:Static ObjectConverters.IsNotNull}}"
+								   />
+					</DataTemplate>
+				</Menu.ItemTemplate>
+			</Menu>
+		</DataTemplate>
+		<DataTemplate DataType="{x:Type vm:MenuItemVM}">
+			<MenuItem Header="{Binding Header}" ItemsSource="{Binding Items}"
+					  Classes.checkbox="{Binding IsChecked, Converter={x:Static ObjectConverters.IsNotNull}}" /> 
+			
+			
+			<!--Classes="checkbox"  -->
+		</DataTemplate>
+	</Application.DataTemplates>
+	
+</Application>

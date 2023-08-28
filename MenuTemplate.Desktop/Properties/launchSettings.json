@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "MenuTemplate.Desktop": {
+      "commandName": "Project"
+    }
+  }
+}
